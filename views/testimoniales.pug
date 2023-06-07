@@ -1,0 +1,34 @@
+extends ./layout/index  
+
+block contenido
+    main.container.mt-5
+        h1.text-center.mt-5 #{pagina}
+        
+        blockquote.text-center Lee sobre nuestros clientes y sus experiencias
+        include ./layout/bloque_testimoniales
+
+        .row
+
+            .col-md-12
+                h2.d-block.w-100.text-center Agrega un Testimonial
+
+                //-/ Mostrando los mensajes de error que pasamos desde el controlador 
+                if(errores)
+                    each error in errores 
+                        .alert.col.alert-danger.text-center= error.mensaje
+
+            .row.justify-content-center.col
+                .col-md-8
+                    form(action="/testimoniales", method="post") 
+                        .form-group
+                            label(for="nombre") Nombre 
+                            //-- Se le estas pasando las variables desde el controlador al value para que no se borre lo que he escrito 
+                            input#nombre(type="text", placeholder="Tu nombre", name="nombre", class="form-control", value=nombre)
+                        .form-group
+                            label(for="correo") Correo Electrónico  
+                            input#correo(type="gmail", placeholder="Tu Correo", name="correo", class="form-control", value=correo)
+                        .form-group
+                            label(for="mensaje") Mensaje 
+                            textarea#mensaje(placeholder="Tu Mensaje", name="mensaje", class="form-control", rows= 3,) #{mensaje}
+                        
+                        input.btn.btn-success.btn-block(type="submit")
